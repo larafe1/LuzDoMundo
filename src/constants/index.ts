@@ -1,0 +1,1 @@
+export const DEFAULT_ANIMATION_DELAY = 0.3;
