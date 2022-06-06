@@ -1,20 +1,19 @@
 export const theme = {
   colors: {
-    text: '#393E46',
-    background: '#eee',
+    text: '#00092c',
+    background: '#f3f1f5',
     shape: '#fff',
-    shapeDark: '#25262b',
+    shapeDark: '#212121',
     border: '#ccc',
     success: '#65c18c',
     attention: '#ffc93c',
-    error: '#e83f5b',
-    primary: '#33313b'
+    error: '#e83f5b'
   },
   fonts: {
-    family: 'Gentium Plus, sans-serif'
+    family: 'Lora, sans-serif'
   },
   shapes: {
-    sharp: '0px',
+    sharp: '0',
     sm: '5px',
     md: '8px',
     lg: '10px'

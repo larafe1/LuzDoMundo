@@ -1,3 +1,5 @@
+import { RiFileList3Line } from 'react-icons/ri';
+import { TbCross } from 'react-icons/tb';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
@@ -15,22 +17,32 @@ export const AsideDecoration = styled.div`
   position: absolute;
   left: 0;
 
-  background-color: ${({ theme }) => theme.colors.primary};
+  box-shadow: ${({ theme }) => theme.boxShadows.dark};
+
+  background-color: ${({ theme }) => theme.colors.text};
 `;
 
 export const Header = styled.div`
   width: 50%;
 
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 
   margin-top: 2rem;
 `;
 
+export const CrossIcon = styled(TbCross)`
+  width: 24px;
+  height: 24px;
+
+  margin-right: 0.8rem;
+
+  color: ${({ theme }) => theme.colors.text};
+`;
+
 export const AppTitle = styled.p`
-  font-size: 3rem;
+  font-size: 2.5rem;
 `;
 
 export const Content = styled.div`
@@ -41,6 +53,15 @@ export const Content = styled.div`
 
 export const ChapterTitleWrapper = styled.div`
   cursor: pointer;
+`;
+
+export const ListIcon = styled(RiFileList3Line)`
+  width: 24px;
+  height: 24px;
+
+  margin-right: 0.4rem;
+
+  color: ${({ theme }) => theme.colors.text};
 `;
 
 export const ChapterTitle = styled.p`
