@@ -1,15 +1,16 @@
 import { FadeEntry, TranslateEntry, Underline } from '@/components';
 import { DEFAULT_ANIMATION_DELAY } from '@/constants';
 import { useBible } from '@/hooks';
+import { capitalizeText } from '@/utils';
 
 import * as S from './styles';
 
 export const Main = () => {
-  const { isLoading, chapter } = useBible();
+  const { isLoading, passage } = useBible();
 
   return (
     <S.Wrapper>
-      <S.AsideDecoration />
+      {/* <S.AsideDecoration /> */}
 
       <S.Header>
         <FadeEntry alignRow delay={DEFAULT_ANIMATION_DELAY * 2.5}>
@@ -18,20 +19,23 @@ export const Main = () => {
         </FadeEntry>
       </S.Header>
 
-      {!isLoading && (
+      {!isLoading && Object.keys(passage).length && (
         <S.Content>
           <S.ChapterTitleWrapper>
             <TranslateEntry
               alignRow
               on="XAxis"
-              delay={DEFAULT_ANIMATION_DELAY * 2.5}
+              delay={DEFAULT_ANIMATION_DELAY * 2}
             >
               <S.ListIcon />
-              <S.ChapterTitle>Mt 5:14</S.ChapterTitle>
+              <S.ChapterTitle>
+                {capitalizeText(passage.book.abbrev.pt)}{' '}
+                {passage.chapter.number}
+              </S.ChapterTitle>
             </TranslateEntry>
 
-            <TranslateEntry on="XAxis" delay={DEFAULT_ANIMATION_DELAY * 3.5}>
-              <Underline w="6.5rem" h="2px" />
+            <TranslateEntry on="XAxis" delay={DEFAULT_ANIMATION_DELAY * 3}>
+              <Underline w="4.7rem" h="2px" />
             </TranslateEntry>
           </S.ChapterTitleWrapper>
 
@@ -39,9 +43,14 @@ export const Main = () => {
             <TranslateEntry
               on="YAxis"
               transitionType="tween"
-              delay={DEFAULT_ANIMATION_DELAY * 4}
+              delay={DEFAULT_ANIMATION_DELAY * 3}
             >
-              <S.Text></S.Text>
+              {passage.verses.map((verse) => (
+                <S.VerseWrapper key={verse.number}>
+                  <S.VerseNumber>{verse.number}</S.VerseNumber>
+                  <S.VerseText>{verse.text}</S.VerseText>
+                </S.VerseWrapper>
+              ))}
             </TranslateEntry>
           </S.ChapterContentWrapper>
         </S.Content>

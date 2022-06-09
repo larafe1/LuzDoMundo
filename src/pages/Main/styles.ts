@@ -76,7 +76,16 @@ export const ChapterContentWrapper = styled.div`
   margin: 5.5rem 0 0 6.5rem;
 `;
 
-export const Text = styled.h1`
+export const VerseWrapper = styled.div`
+  display: flex;
+  background-color: yellow;
+`;
+
+export const VerseNumber = styled.h2``;
+
+export const VerseText = styled.h1`
+  margin-left: 1rem;
+
   font-style: italic;
   font-weight: normal;
 `;

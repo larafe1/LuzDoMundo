@@ -11,8 +11,8 @@ import type {
   BibleProviderProps,
   Book,
   BibleVersion,
-  Passage,
   Chapter,
+  Verse,
   GetChapterPayload,
   GetRandomVersePayload
 } from './types';
@@ -25,7 +25,7 @@ export const BibleProvider = ({ children }: BibleProviderProps) => {
   const [bibleVersion, setBibleVersion] = useState(
     DEFAULT_BIBLE_VERSION as BibleVersion
   );
-  const [chapter, setChapter] = useState({} as Passage);
+  const [passage, setPassage] = useState({} as Chapter);
 
   const getBooks = async () => {
     try {
@@ -47,8 +47,8 @@ export const BibleProvider = ({ children }: BibleProviderProps) => {
       const baseUrl = `/${bookAbbrev}/${chapter}`;
       const parsedUrl = verse ? baseUrl + `/${verse}` : baseUrl;
 
-      const { data }: AxiosResponse<Passage> = await api.get(parsedUrl);
-      setChapter(data);
+      const { data }: AxiosResponse<Chapter> = await api.get(parsedUrl);
+      setPassage(data);
     } catch (e) {
       console.error(e);
     } finally {
@@ -65,25 +65,23 @@ export const BibleProvider = ({ children }: BibleProviderProps) => {
         bookAbbreviation = books[randomBook]?.abbrev.pt;
       }
 
-      const { data }: AxiosResponse<Passage> = await api.get(
+      const { data }: AxiosResponse<Verse> = await api.get(
         `/${bookAbbreviation}/random`
       );
-      if (!isChapter(data)) {
-        const fmtData: Chapter = {
-          book: data.book,
-          chapter: {
-            number: data.chapter,
-            verses: data.number
-          },
-          verses: [
-            {
-              number: data.number,
-              text: data.text
-            }
-          ]
-        };
-        setChapter(fmtData);
-      }
+      const fmtData: Chapter = {
+        book: data.book,
+        chapter: {
+          number: data.chapter,
+          verses: data.number
+        },
+        verses: [
+          {
+            number: data.number,
+            text: data.text
+          }
+        ]
+      };
+      setPassage(fmtData);
     } catch (e) {
       console.error(e);
     } finally {
@@ -94,9 +92,6 @@ export const BibleProvider = ({ children }: BibleProviderProps) => {
   const changeBibleVersion = (payload: BibleVersion) => {
     setBibleVersion(payload);
   };
-
-  const isChapter = (passage: Passage): passage is Chapter =>
-    typeof passage !== 'number';
 
   const loadData = useCallback(async () => {
     const rawBooks = localStorage.getItem(config.booksStorageKey);
@@ -122,7 +117,7 @@ export const BibleProvider = ({ children }: BibleProviderProps) => {
         isLoading,
         bibleVersion,
         books,
-        chapter,
+        passage,
         changeBibleVersion,
         getChapter,
         getRandomVerse
