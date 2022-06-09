@@ -8,7 +8,7 @@ export type BibleContextProps = {
   isLoading: boolean;
   bibleVersion: BibleVersion;
   books: Book[];
-  chapter: Passage;
+  passage: Chapter;
   changeBibleVersion: (payload: BibleVersion) => void;
   getChapter: (payload: GetChapterPayload) => Promise<void>;
   getRandomVerse: (payload?: GetRandomVersePayload) => Promise<void>;
@@ -56,14 +56,12 @@ export type Chapter = {
   verses: ChapterVerse[];
 };
 
-type Verse = {
+export type Verse = {
   book: PartialBook;
   chapter: number;
   number: number;
   text: string;
 };
-
-export type Passage = Chapter | Verse;
 
 export type GetChapterPayload = {
   bookAbbrev: BookAbbreviation['pt'];
