@@ -1,9 +1,12 @@
 import { FadeEntry, TranslateEntry, Underline } from '@/components';
 import { DEFAULT_ANIMATION_DELAY } from '@/constants';
+import { useBible } from '@/hooks';
 
 import * as S from './styles';
 
 export const Main = () => {
+  const { isLoading, chapter } = useBible();
+
   return (
     <S.Wrapper>
       <S.AsideDecoration />
@@ -15,48 +18,34 @@ export const Main = () => {
         </FadeEntry>
       </S.Header>
 
-      <S.Content>
-        <S.ChapterTitleWrapper>
-          <TranslateEntry
-            alignRow
-            on="XAxis"
-            delay={DEFAULT_ANIMATION_DELAY * 2.5}
-          >
-            <S.ListIcon />
-            <S.ChapterTitle>Mt 5:14</S.ChapterTitle>
-          </TranslateEntry>
+      {!isLoading && (
+        <S.Content>
+          <S.ChapterTitleWrapper>
+            <TranslateEntry
+              alignRow
+              on="XAxis"
+              delay={DEFAULT_ANIMATION_DELAY * 2.5}
+            >
+              <S.ListIcon />
+              <S.ChapterTitle>Mt 5:14</S.ChapterTitle>
+            </TranslateEntry>
 
-          <TranslateEntry on="XAxis" delay={DEFAULT_ANIMATION_DELAY * 3.5}>
-            <Underline w="6.5rem" h="2px" />
-          </TranslateEntry>
-        </S.ChapterTitleWrapper>
+            <TranslateEntry on="XAxis" delay={DEFAULT_ANIMATION_DELAY * 3.5}>
+              <Underline w="6.5rem" h="2px" />
+            </TranslateEntry>
+          </S.ChapterTitleWrapper>
 
-        <S.ChapterContentWrapper>
-          <TranslateEntry
-            on="YAxis"
-            transitionType="tween"
-            delay={DEFAULT_ANIMATION_DELAY * 4}
-          >
-            <S.Text>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam
-              recusandae inventore provident eligendi, et non aperiam suscipit
-              quia eos dolores doloremque magnam porro odit soluta libero rem?
-              Et, praesentium sint. Lorem ipsum dolor, sit amet consectetur
-              adipisicing elit. A itaque dicta, veniam ipsam labore harum ab
-              dolor, exercitationem nam magni doloremque quos, sapiente minima
-              hic dolorem alias facere veritatis aperiam. Lorem ipsum dolor, sit
-              amet consectetur adipisicing elit. Nesciunt molestiae, tempora
-              mollitia fugiat impedit ullam dicta repudiandae quod cumque, nihil
-              dignissimos minima accusantium voluptates ab exercitationem
-              necessitatibus facere eos cum? Lorem ipsum dolor sit amet,
-              consectetur adipisicing elit. Similique adipisci facere
-              dignissimos? Enim autem cumque quos, id natus deleniti eius a
-              doloribus fugit voluptatibus est. Corrupti numquam assumenda quis
-              culpa.
-            </S.Text>
-          </TranslateEntry>
-        </S.ChapterContentWrapper>
-      </S.Content>
+          <S.ChapterContentWrapper>
+            <TranslateEntry
+              on="YAxis"
+              transitionType="tween"
+              delay={DEFAULT_ANIMATION_DELAY * 4}
+            >
+              <S.Text></S.Text>
+            </TranslateEntry>
+          </S.ChapterContentWrapper>
+        </S.Content>
+      )}
     </S.Wrapper>
   );
 };
