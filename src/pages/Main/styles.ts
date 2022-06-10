@@ -1,25 +1,17 @@
+import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { RiFileList3Line } from 'react-icons/ri';
 import { TbCross } from 'react-icons/tb';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100vw;
+  height: 100vh;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
 
-export const AsideDecoration = styled.div`
-  width: 10%;
-  height: 100%;
-
-  position: absolute;
-  left: 0;
-
-  box-shadow: ${({ theme }) => theme.boxShadows.dark};
-
-  background-color: ${({ theme }) => theme.colors.text};
+  overflow: hidden;
 `;
 
 export const Header = styled.div`
@@ -45,9 +37,17 @@ export const AppTitle = styled.p`
   font-size: 2.5rem;
 `;
 
-export const Content = styled.div`
+export const Body = styled.div`
   width: 50%;
+  height: 100vh;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Content = styled.div`
   margin-top: 4rem;
 `;
 
@@ -87,4 +87,35 @@ export const VerseText = styled.h1`
 
   font-style: italic;
   font-weight: normal;
+`;
+
+export const Footer = styled.div`
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+
+  gap: 8.5rem;
+
+  margin-bottom: 5rem;
+`;
+
+export const BackIcon = styled(BsArrowLeft)`
+  width: 20px;
+  height: 20px;
+
+  margin-right: 1.5rem;
+
+  color: ${({ theme }) => theme.colors.text};
+`;
+
+export const ButtonText = styled.h3``;
+
+export const NextIcon = styled(BsArrowRight)`
+  width: 20px;
+  height: 20px;
+
+  margin-left: 1.5rem;
+
+  color: ${({ theme }) => theme.colors.text};
 `;
