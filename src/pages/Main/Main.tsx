@@ -1,4 +1,4 @@
-import { FadeEntry, TranslateEntry, Underline, Button } from '@/components';
+import { Loading, TranslateEntry, Underline, Button } from '@/components';
 import {
   DEFAULT_ANIMATION_DELAY,
   CHAPTER_FIRST_VERSE,
@@ -11,19 +11,12 @@ import { useBooks } from './useBooks';
 import { usePassage } from './usePassage';
 
 export const Main = () => {
-  const { isLoading, passage } = usePassage();
+  const { isLoading, passage, handleGetChapter } = usePassage();
   const { getBookByAbbrev } = useBooks();
 
   return (
     <S.Wrapper>
-      <S.Header>
-        <FadeEntry alignRow delay={DEFAULT_ANIMATION_DELAY * 2.5}>
-          <S.CrossIcon />
-          <S.AppTitle>Luz do Mundo</S.AppTitle>
-        </FadeEntry>
-      </S.Header>
-
-      {!isLoading && Object.keys(passage).length && (
+      {!isLoading && Object.keys(passage).length ? (
         <S.Body>
           <S.Content>
             <S.ChapterTitleWrapper>
@@ -70,7 +63,7 @@ export const Main = () => {
                   passage.verses[0].number,
                   CHAPTER_FIRST_VERSE
                 )}
-                onClick={() => console.log('Prev fn triggered')}
+                onClick={() => handleGetChapter(passage, 'prev')}
               >
                 <S.BackIcon />
                 <S.ButtonText>
@@ -91,7 +84,7 @@ export const Main = () => {
                     getBookByAbbrev(passage.book.abbrev.pt)!.chapters
                   )
                 )}
-                onClick={() => console.log('Next fn triggered')}
+                onClick={() => handleGetChapter(passage, 'next')}
               >
                 <S.ButtonText>
                   {capitalizeText(passage.book.abbrev.pt)}{' '}
@@ -102,6 +95,8 @@ export const Main = () => {
             </TranslateEntry>
           </S.Footer>
         </S.Body>
+      ) : (
+        <Loading />
       )}
     </S.Wrapper>
   );

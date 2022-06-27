@@ -37,8 +37,7 @@ export const Button = styled.button<ButtonProps>`
   color: ${({ color }) => color || 'inherit'};
   background-color: ${({ theme }) => theme.colors.lightGray};
 
-  transition: filter ${({ theme }) => theme.transitions.default};
-  transition: transform ${({ theme }) => theme.transitions.fast};
+  transition: all ${({ theme }) => theme.transitions.fast};
 
   &:hover {
     filter: brightness(0.95);

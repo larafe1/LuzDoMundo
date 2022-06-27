@@ -1,6 +1,5 @@
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { RiFileList3Line } from 'react-icons/ri';
-import { TbCross } from 'react-icons/tb';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
@@ -14,29 +13,6 @@ export const Wrapper = styled.div`
   overflow: hidden;
 `;
 
-export const Header = styled.div`
-  width: 50%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  margin-top: 2rem;
-`;
-
-export const CrossIcon = styled(TbCross)`
-  width: 24px;
-  height: 24px;
-
-  margin-right: 0.8rem;
-
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-export const AppTitle = styled.p`
-  font-size: 2.5rem;
-`;
-
 export const Body = styled.div`
   width: 50%;
   height: 100vh;
@@ -48,7 +24,7 @@ export const Body = styled.div`
 `;
 
 export const Content = styled.div`
-  margin-top: 4rem;
+  margin-top: 6.5rem;
 `;
 
 export const ChapterTitleWrapper = styled.div`
@@ -70,10 +46,14 @@ export const ChapterTitle = styled.p`
 `;
 
 export const ChapterContentWrapper = styled.div`
+  height: 35rem;
+
   display: flex;
   justify-content: center;
 
   margin: 5.5rem 0 0 6.5rem;
+
+  overflow-y: hidden;
 `;
 
 export const VerseWrapper = styled.div`
@@ -85,6 +65,7 @@ export const VerseNumber = styled.h2``;
 export const VerseText = styled.h1`
   margin-left: 1rem;
 
+  font-size: 1.8rem;
   font-style: italic;
   font-weight: normal;
 `;

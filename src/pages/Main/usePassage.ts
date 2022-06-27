@@ -7,11 +7,11 @@ export const usePassage = () => {
   const handleGetChapter = async (chapter: Chapter, which: 'prev' | 'next') => {
     const searchObj: GetChapterPayload = {
       bookAbbrev: chapter.book.abbrev.pt,
-      chapter:
+      chapter: chapter.chapter.number,
+      verse:
         which === 'prev'
-          ? chapter.chapter.number - 1
-          : chapter.chapter.number + 1,
-      verse: 1
+          ? chapter.verses[0].number - 1
+          : chapter.verses[0].number + 1
     };
     await getChapter(searchObj);
   };

@@ -47,8 +47,23 @@ export const BibleProvider = ({ children }: BibleProviderProps) => {
       const baseUrl = `/${bookAbbrev}/${chapter}`;
       const parsedUrl = verse ? baseUrl + `/${verse}` : baseUrl;
 
-      const { data }: AxiosResponse<Chapter> = await api.get(parsedUrl);
-      setPassage(data);
+      const { data }: AxiosResponse<any> = await api.get(parsedUrl);
+      const fmtData: Chapter = !verse
+        ? data
+        : {
+            book: data.book,
+            chapter: {
+              number: data.chapter,
+              verses: data.number
+            },
+            verses: [
+              {
+                number: data.number,
+                text: data.text
+              }
+            ]
+          };
+      setPassage(fmtData);
     } catch (e) {
       console.error(e);
     } finally {
