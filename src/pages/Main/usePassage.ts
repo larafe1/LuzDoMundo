@@ -2,19 +2,52 @@ import { useBible } from '@/hooks';
 import { Chapter, GetChapterPayload } from '@/providers/BibleProvider/types';
 
 export const usePassage = () => {
-  const { isLoading, getChapter, passage } = useBible();
+  const {
+    isLoading,
+    getChapter,
+    passage,
+    bookmarks,
+    saveChapterIntoBookmarks
+  } = useBible();
 
-  const handleGetChapter = async (chapter: Chapter, which: 'prev' | 'next') => {
+  const handleGetChapter = async (payload: Chapter, which: 'prev' | 'next') => {
     const searchObj: GetChapterPayload = {
-      bookAbbrev: chapter.book.abbrev.pt,
-      chapter: chapter.chapter.number,
+      bookAbbrev: payload.book.abbrev.pt,
+      chapter: payload.chapter.number,
       verse:
         which === 'prev'
-          ? chapter.verses[0].number - 1
-          : chapter.verses[0].number + 1
+          ? payload.verses[0].number - 1
+          : payload.verses[0].number + 1
     };
     await getChapter(searchObj);
   };
 
-  return { isLoading, handleGetChapter, passage };
+  const checkIfAlreadyBookmarked = (payload: Chapter) => {
+    const chapterURI = `${payload.book.abbrev.pt}/${payload.chapter.number}`;
+
+    return !!bookmarks.find((bookmark) => bookmark === chapterURI);
+  };
+
+  const handleSaveChapterIntoBookmarks = (payload: Chapter) => {
+    if (!Object.keys(payload).length) return;
+
+    let allBookmarks = [...bookmarks];
+    const chapterURI = `${payload.book.abbrev.pt}/${payload.chapter.number}`;
+    const alreadyBookmarked = checkIfAlreadyBookmarked(payload);
+    if (alreadyBookmarked) {
+      allBookmarks = bookmarks.filter((bookmark) => bookmark !== chapterURI);
+    } else {
+      allBookmarks.push(chapterURI);
+    }
+
+    saveChapterIntoBookmarks(allBookmarks);
+  };
+
+  return {
+    isLoading,
+    handleGetChapter,
+    passage,
+    checkIfAlreadyBookmarked,
+    handleSaveChapterIntoBookmarks
+  };
 };

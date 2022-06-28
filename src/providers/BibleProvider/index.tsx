@@ -26,6 +26,7 @@ export const BibleProvider = ({ children }: BibleProviderProps) => {
     DEFAULT_BIBLE_VERSION as BibleVersion
   );
   const [passage, setPassage] = useState({} as Chapter);
+  const [bookmarks, setBookmarks] = useState([] as string[]);
 
   const getBooks = async () => {
     try {
@@ -104,18 +105,30 @@ export const BibleProvider = ({ children }: BibleProviderProps) => {
     }
   };
 
+  const saveChapterIntoBookmarks = (payload: string[]) => {
+    setBookmarks(payload);
+    localStorage.setItem(config.bookmarksStorageKey, JSON.stringify(payload));
+  };
+
   const changeBibleVersion = (payload: BibleVersion) => {
     setBibleVersion(payload);
   };
 
   const loadData = useCallback(async () => {
     const rawBooks = localStorage.getItem(config.booksStorageKey);
+    const bookmarks = localStorage.getItem(config.bookmarksStorageKey);
     if (!rawBooks) {
       await getBooks();
     } else {
       const parsedBooks = JSON.parse(rawBooks);
       setBooks(parsedBooks);
     }
+
+    if (bookmarks) {
+      const parsedBookmarks = JSON.parse(bookmarks);
+      setBookmarks(parsedBookmarks);
+    }
+
     api.defaults.baseURL = `${config.baseApiUrl}/verses/${bibleVersion.abbrev}`;
     await getRandomVerse();
 
@@ -133,7 +146,9 @@ export const BibleProvider = ({ children }: BibleProviderProps) => {
         bibleVersion,
         books,
         passage,
+        bookmarks,
         changeBibleVersion,
+        saveChapterIntoBookmarks,
         getChapter,
         getRandomVerse
       }}

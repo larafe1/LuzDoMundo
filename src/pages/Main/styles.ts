@@ -1,4 +1,9 @@
-import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
+import {
+  BsBookmark,
+  BsBookmarkFill,
+  BsArrowLeft,
+  BsArrowRight
+} from 'react-icons/bs';
 import { RiFileList3Line } from 'react-icons/ri';
 import styled from 'styled-components';
 
@@ -27,6 +32,12 @@ export const Content = styled.div`
   margin-top: 6.5rem;
 `;
 
+export const ChapterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const ChapterTitleWrapper = styled.div`
   cursor: pointer;
 `;
@@ -43,6 +54,26 @@ export const ListIcon = styled(RiFileList3Line)`
 export const ChapterTitle = styled.p`
   font-size: 2rem;
   font-weight: bold;
+`;
+
+export const BookmarkButton = styled.button`
+  background: inherit;
+
+  transition: transform ${({ theme }) => theme.transitions.fast};
+
+  &:active {
+    transform: scale(0.9);
+  }
+`;
+
+export const BookmarkFilledIcon = styled(BsBookmarkFill)`
+  width: 24px;
+  height: 24px;
+`;
+
+export const BookmarkEmptyIcon = styled(BsBookmark)`
+  width: 24px;
+  height: 24px;
 `;
 
 export const ChapterContentWrapper = styled.div`

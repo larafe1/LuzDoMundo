@@ -9,7 +9,9 @@ export type BibleContextProps = {
   bibleVersion: BibleVersion;
   books: Book[];
   passage: Chapter;
+  bookmarks: string[];
   changeBibleVersion: (payload: BibleVersion) => void;
+  saveChapterIntoBookmarks: (payload: string[]) => void;
   getChapter: (payload: GetChapterPayload) => Promise<void>;
   getRandomVerse: (payload?: GetRandomVersePayload) => Promise<void>;
 };

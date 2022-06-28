@@ -16,8 +16,8 @@ export const LoadingText = styled.p`
 `;
 
 export const Loader = styled(PropagateLoader).attrs({
-  color: 'rgba(0, 9, 44, 0.8)',
+  color: 'rgba(0, 9, 44, 0.6)',
   size: 12
 })`
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 `;

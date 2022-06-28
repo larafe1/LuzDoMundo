@@ -3,9 +3,9 @@ export const theme = {
     text: '#00092c',
     background: '#f4f6ff',
     shape: '#fff',
-    lightGray: '#f8fafc',
+    lightGray: '#f0f2fa',
     shapeDark: '#212121',
-    border: '#ccc',
+    border: '#ddd',
     success: '#65c18c',
     attention: '#ffc93c',
     error: '#e83f5b'

@@ -1,4 +1,10 @@
-import { Loading, TranslateEntry, Underline, Button } from '@/components';
+import {
+  Loading,
+  TranslateEntry,
+  Underline,
+  FadeEntry,
+  Button
+} from '@/components';
 import {
   DEFAULT_ANIMATION_DELAY,
   CHAPTER_FIRST_VERSE,
@@ -11,7 +17,13 @@ import { useBooks } from './useBooks';
 import { usePassage } from './usePassage';
 
 export const Main = () => {
-  const { isLoading, passage, handleGetChapter } = usePassage();
+  const {
+    isLoading,
+    passage,
+    handleGetChapter,
+    handleSaveChapterIntoBookmarks,
+    checkIfAlreadyBookmarked
+  } = usePassage();
   const { getBookByAbbrev } = useBooks();
 
   return (
@@ -19,23 +31,37 @@ export const Main = () => {
       {!isLoading && Object.keys(passage).length ? (
         <S.Body>
           <S.Content>
-            <S.ChapterTitleWrapper>
-              <TranslateEntry
-                alignRow
-                on="XAxis"
-                delay={DEFAULT_ANIMATION_DELAY * 2}
-              >
-                <S.ListIcon />
-                <S.ChapterTitle>
-                  {capitalizeText(passage.book.abbrev.pt)}{' '}
-                  {passage.chapter.number}
-                </S.ChapterTitle>
-              </TranslateEntry>
+            <S.ChapterWrapper>
+              <S.ChapterTitleWrapper>
+                <TranslateEntry
+                  alignRow
+                  on="XAxis"
+                  delay={DEFAULT_ANIMATION_DELAY * 2}
+                >
+                  <S.ListIcon />
+                  <S.ChapterTitle>
+                    {capitalizeText(passage.book.abbrev.pt)}{' '}
+                    {passage.chapter.number}
+                  </S.ChapterTitle>
+                </TranslateEntry>
 
-              <TranslateEntry on="XAxis" delay={DEFAULT_ANIMATION_DELAY * 3}>
-                <Underline w="4.7rem" h="2px" />
-              </TranslateEntry>
-            </S.ChapterTitleWrapper>
+                <TranslateEntry on="XAxis" delay={DEFAULT_ANIMATION_DELAY * 3}>
+                  <Underline w="4.7rem" h="2px" />
+                </TranslateEntry>
+              </S.ChapterTitleWrapper>
+
+              <FadeEntry delay={DEFAULT_ANIMATION_DELAY * 2}>
+                <S.BookmarkButton
+                  onClick={() => handleSaveChapterIntoBookmarks(passage)}
+                >
+                  {checkIfAlreadyBookmarked(passage) ? (
+                    <S.BookmarkFilledIcon />
+                  ) : (
+                    <S.BookmarkEmptyIcon />
+                  )}
+                </S.BookmarkButton>
+              </FadeEntry>
+            </S.ChapterWrapper>
 
             <S.ChapterContentWrapper>
               <TranslateEntry
